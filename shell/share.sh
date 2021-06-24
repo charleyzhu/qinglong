@@ -198,15 +198,15 @@ fix_config() {
     fi
 }
 
-## npm install 子程序，判断是否为安卓，判断是否安装有pnpm
+## npm install 子程序，判断是否为安卓，判断是否安装有yarn
 npm_install_sub() {
     if [ $is_termux -eq 1 ]; then
         npm install --production --no-save --no-bin-links --registry=https://registry.npm.taobao.org || npm install --production --no-bin-links --no-save
-    elif ! type pnpm >/dev/null 2>&1; then
+    elif ! type yarn -h >/dev/null 2>&1; then
         npm install --production --no-save --registry=https://registry.npm.taobao.org || npm install --production --no-save
     else
-        echo -e "检测到本机安装了 pnpm，使用 pnpm 替代 ...\n"
-        pnpm install --prod
+        echo -e "检测到本机安装了 yarn，使用 yarn 替代 ...\n"
+        yarn install --prod
     fi
 }
 
