@@ -269,34 +269,34 @@ update_qinglong() {
         echo -e "\n更新$dir_root失败，请检查原因...\n"
     fi
 
-    local url="${github_proxy_url}https://github.com/whyour/qinglong-static.git"
-    if [ -d ${ql_static_repo}/.git ]; then
-        reset_romote_url ${ql_static_repo} ${url}
-        cd ${ql_static_repo}
-        git fetch --all
-        exit_status=$?
-        git reset --hard origin/master
-        cd $dir_root
-    else
-        git_clone_scripts ${url} ${ql_static_repo}
-    fi
-    if [[ $exit_status -eq 0 ]]; then
-        echo -e "\n更新$ql_static_repo成功...\n"
-        cd $ql_static_repo
-        commit_id=$(git rev-parse --short HEAD)
-        echo -e "\n当前静态资源版本 $commit_id...\n"
-        cd $dir_root
-        rm -rf $dir_root/build && rm -rf $dir_root/dist
-        cp -rf $ql_static_repo/* $dir_root
-        if [[ $no_restart != "no-restart" ]]; then
-            echo -e "重启面板中..."
-            nginx -s reload 2>/dev/null || nginx -c /etc/nginx/nginx.conf
-            sleep 1
-            reload_pm2
-        fi
-    else
-        echo -e "\n更新$dir_root失败，请检查原因...\n"
-    fi
+    # local url="${github_proxy_url}https://github.com/whyour/qinglong-static.git"
+    # if [ -d ${ql_static_repo}/.git ]; then
+    #     reset_romote_url ${ql_static_repo} ${url}
+    #     cd ${ql_static_repo}
+    #     git fetch --all
+    #     exit_status=$?
+    #     git reset --hard origin/master
+    #     cd $dir_root
+    # else
+    #     git_clone_scripts ${url} ${ql_static_repo}
+    # fi
+    # if [[ $exit_status -eq 0 ]]; then
+    #     echo -e "\n更新$ql_static_repo成功...\n"
+    #     cd $ql_static_repo
+    #     commit_id=$(git rev-parse --short HEAD)
+    #     echo -e "\n当前静态资源版本 $commit_id...\n"
+    #     cd $dir_root
+    #     rm -rf $dir_root/build && rm -rf $dir_root/dist
+    #     cp -rf $ql_static_repo/* $dir_root
+    #     if [[ $no_restart != "no-restart" ]]; then
+    #         echo -e "重启面板中..."
+    #         nginx -s reload 2>/dev/null || nginx -c /etc/nginx/nginx.conf
+    #         sleep 1
+    #         reload_pm2
+    #     fi
+    # else
+    #     echo -e "\n更新$dir_root失败，请检查原因...\n"
+    # fi
 
 }
 
