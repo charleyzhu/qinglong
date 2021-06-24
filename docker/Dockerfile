@@ -35,5 +35,5 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && chmod 777 ${QL_DIR}/shell/*.sh \
     && chmod 777 ${QL_DIR}/docker/*.sh \
     && npm install -g pm2 \
-    && yarn install
+    && npm install
 ENTRYPOINT ["./docker/docker-entrypoint.sh"]
